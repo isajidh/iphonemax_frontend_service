@@ -7,3 +7,5 @@ EXPOSE 80
 # USER node
 USER root
 CMD ["nginx", "-g", "daemon off;"]
+
+LABEL org.opencontainers.image.source="https://github.com/isajidh/iphonemax_frontend_service"
