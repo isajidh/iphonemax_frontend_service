@@ -1,12 +1,16 @@
-FROM node:lts-alpine
-ENV NODE_ENV=production
-WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+# build environment
+FROM node:13.12.0-alpine as build
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
 RUN npm config set legacy-peer-deps=true
-RUN npm install mdb-react-ui-kit@4.2.0
-RUN npm install && mv node_modules ../
-COPY . .
-EXPOSE 3000
-RUN chown -R node /usr/src/app
-USER node
-CMD ["npm", "start"]
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm ci --silent
+RUN npm install react-scripts@3.4.1 -g --silent
+COPY . ./
+RUN npm run build
+# production environment
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
