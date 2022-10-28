@@ -27,7 +27,7 @@ jobs:
         with:
           context: ./
           file: ./Dockerfile
-          builder: ${{ steps.buildx.outputs.name }}
+          # builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iphonemax_frontend_service:latest
           # cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iphonemax_frontend_service:buildcache
