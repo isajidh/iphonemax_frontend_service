@@ -1,18 +1,12 @@
-FROM node:lts-alpine AS build
+FROM node:lts-alpine
 ENV NODE_ENV=production
 WORKDIR /usr/src/app
-COPY ["package.json", "./"]
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN npm config set legacy-peer-deps=true
 RUN npm install mdb-react-ui-kit@4.2.0
-RUN npm install
+RUN npm install && mv node_modules ../
 COPY . .
-RUN npm run build
-
-# STAGE 2
-FROM nginx:1.16-alpine
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
-USER root
-CMD ["nginx", "-g", "daemon off;"]
-EXPOSE 80
-
-LABEL org.opencontainers.image.source="https://github.com/isajidh/iphonemax_frontend_service"
+EXPOSE 3000
+RUN chown -R node /usr/src/app
+USER node
+CMD ["npm", "start"]
