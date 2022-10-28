@@ -6,6 +6,7 @@ EXPOSE 80
 # RUN chown -R node /usr/src/app
 # USER node
 USER root
-CMD ["nginx", "-g", "daemon off;"]
+# Disabled to test in the production environment
+# CMD ["nginx", "-g", "daemon off;"]
 
 LABEL org.opencontainers.image.source="https://github.com/isajidh/iphonemax_frontend_service"
