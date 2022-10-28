@@ -1,12 +1,18 @@
+FROM node:lts-alpine AS build
+ENV NODE_ENV=production
+WORKDIR /usr/src/app
+COPY ["package.json", "./"]
+RUN npm config set legacy-peer-deps=true
+RUN npm install mdb-react-ui-kit@4.2.0
+RUN npm install
+COPY . .
+RUN npm run build
+
 # STAGE 2
 FROM nginx:1.16-alpine
-COPY ./build /usr/share/nginx/html
-EXPOSE 80
-# EXPOSE 3000 
-# RUN chown -R node /usr/src/app
-# USER node
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 USER root
-# Disabled to test in the production environment
-# CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 80
 
 LABEL org.opencontainers.image.source="https://github.com/isajidh/iphonemax_frontend_service"
