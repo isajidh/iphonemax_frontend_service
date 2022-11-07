@@ -6,6 +6,7 @@ import { Catalog } from '../view/Catalog';
 import { Cart } from '../view/Cart';
 import { Login } from '../view/Login';
 import { SignUp } from '../view/SignUp';
+import { Client } from '../view/Client';
 import { ApplicationPaths } from '../constants';
 import '../Assets/styles/App.css'
 
@@ -17,6 +18,7 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={Catalog} />
         <Route path={ApplicationPaths.CatalogPath} component={Catalog} />
+        <Route path={ApplicationPaths.ClientPath} component={Client} />
         <Route path={ApplicationPaths.CartPath} component={Cart} />
         <Route path={ApplicationPaths.AboutPath} component={About} />
         <Route path={ApplicationPaths.SignUpPath} component={SignUp} />
