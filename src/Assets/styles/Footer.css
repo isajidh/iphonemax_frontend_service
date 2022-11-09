@@ -1,8 +1,9 @@
 .footer {
-    margin-top: 1rem;
+    padding-top: 100px;
     padding: 1rem;
     background-color: rgb(229 229 229);
-    position: fixed;
+    position: inherit;
+    margin-top: 5%;
     bottom: 0;
     left: 0;
     width: 100%;

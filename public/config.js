@@ -19,4 +19,4 @@ window.CATALOG_SERVICE_URL = 'http://localhost:5000'
 window.CATALOG_ITEMS_API_URL = `${window.CATALOG_SERVICE_URL}/items`
 window.CART_SERVICE_URL = 'http://localhost:5004'
 window.CART_ITEMS_API_URL = `${window.CART_SERVICE_URL}/items`
-window.RABBITMQ_URL = 'http://localhost:15672'
+window.RABBITMQ_URL = 'http://localhost:5672'

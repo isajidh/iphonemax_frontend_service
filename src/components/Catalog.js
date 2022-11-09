@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Container, Row, Table, Button } from 'react-bootstrap';
 import ItemModal from '../model/ItemModal';
-import AddToCartModal from '../model/AddToCartModal';
+
+// import AddToCartModal from '../model/AddToCartModal';
 
 
 export class Catalog extends Component {
@@ -19,6 +20,9 @@ export class Catalog extends Component {
   async populateItems() {
     fetch(`${window.CATALOG_ITEMS_API_URL}`)
       .then(response => {
+        if (!response.ok) {
+          throw Error("Could not fetch data for that resource");
+        }
         return response.json();
       })
       .then(returnedItems => this.setState({ items: returnedItems, loading: false, loadedSuccess: true }))
@@ -27,7 +31,6 @@ export class Catalog extends Component {
         this.setState({ items: [], loading: false, loadedSuccess: false })
       });
   }
-
   addItemToState = item => {
     this.setState(previous => ({
       items: [...previous.items, item]
@@ -69,9 +72,6 @@ export class Catalog extends Component {
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
-                {/* <th>
-                  Image
-                </th> */}
                 <th style={{ textAlign: "center" }}>Actions</th>
               </tr>
             </thead>
@@ -89,7 +89,7 @@ export class Catalog extends Component {
                       {item.description}
                     </td>
                     <td>
-                      {item.price}
+                      {item.price.toLocaleString()}
                     </td>
                     <td align="center">
                       <div>
@@ -97,9 +97,6 @@ export class Catalog extends Component {
                           isNew={false}
                           item={item}
                           updateItemIntoState={this.updateState} />
-                        &nbsp;&nbsp;&nbsp;
-                        <AddToCartModal
-                          item={item} />
                         &nbsp;&nbsp;&nbsp;
                         <Button variant="danger" onClick={() => this.deleteItem(item.id)}>Delete</Button>
                       </div>
@@ -127,7 +124,7 @@ export class Catalog extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel" >Product Catalog</h1>
+        <h1 id="tabelLabel" align="center">Product Catalog</h1>
         {contents}
       </div>
     );

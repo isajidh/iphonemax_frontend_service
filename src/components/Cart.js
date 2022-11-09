@@ -1,41 +1,33 @@
 import React, { Component } from 'react';
 import { Col, Container, Row, Table, Button, Form } from 'react-bootstrap';
 
-export class Cart extends Component
-{
+export class Cart extends Component {
   static displayName = Cart.name;
 
-  constructor(props)
-  {
+  constructor(props) {
     super(props);
     this.state = { userId: '', items: [], renderItems: false, loading: true, loadedSuccess: false };
   }
 
-  onChange = e =>
-  {
+  onChange = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  async populateItems()
-  {
-    if (this.state.userId === '')
-    {
-      return;
+  async populateItems() {
+    if (this.state.userId === '') {
+      return alert("Please enter an userId");
     }
 
     this.setState({ items: [], renderItems: true, loading: true, loadedSuccess: false })
     fetch(`${window.CART_ITEMS_API_URL}?userId=${this.state.userId}`)
       .then(response => response.json())
       .then(returnedItems => this.setState({ items: returnedItems, loading: false, loadedSuccess: true }))
-      .catch(err =>
-      {
-        console.log(err);
+      .catch(err => {
         this.setState({ items: [], loading: false, loadedSuccess: false })
       });
   }
 
-  renderInputs()
-  {
+  renderInputs() {
     return <Form inline >
       <Form.Label htmlFor="userId" srOnly>User Id:</Form.Label>
       <Form.Control
@@ -51,8 +43,7 @@ export class Cart extends Component
     </Form>;
   }
 
-  renderItemsTable()
-  {
+  renderItemsTable() {
     return this.state.renderItems === false ? ''
       : this.state.loading ? <p><em>Loading...</em></p>
         : this.state.loadedSuccess === false ? <p>Could not load items</p>
@@ -92,8 +83,7 @@ export class Cart extends Component
           </Container>;
   }
 
-  render()
-  {
+  render() {
     return (
       <div>
         <h1 id="tabelLabel" >Cart</h1>

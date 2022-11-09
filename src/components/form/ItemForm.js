@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 
-export default class ItemForm extends React.Component
-{
+export default class ItemForm extends React.Component {
     state = {
         id: 0,
         name: '',
@@ -12,38 +11,31 @@ export default class ItemForm extends React.Component
         validated: false
     }
 
-    componentDidMount()
-    {
-        if (this.props.item)
-        {
+    componentDidMount() {
+        if (this.props.item) {
             const { id, name, description, price } = this.props.item
             this.setState({ id, name, description, price });
         }
     }
-    onChange = e =>
-    {
+    onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    submitNew = (e) =>
-    {
+    submitNew = (e) => {
         e.preventDefault();
 
         const form = e.currentTarget;
-        if (form.checkValidity() === false)
-        {
+        if (form.checkValidity() === false) {
             e.stopPropagation();
         }
-        else
-        {
+        else {
             this.createItem();
         }
 
         this.setState({ validated: true });
     }
 
-    async createItem()
-    {
+    async createItem() {
         fetch(`${window.CATALOG_ITEMS_API_URL}`, {
             method: 'post',
             headers: {
@@ -55,10 +47,8 @@ export default class ItemForm extends React.Component
                 price: parseFloat(this.state.price)
             })
         })
-            .then(async response =>
-            {
-                if (!response.ok)
-                {
+            .then(async response => {
+                if (!response.ok) {
                     const errorData = await response.json();
                     console.error(errorData);
                     throw new Error(`Could not add the item: ${errorData.title}`);
@@ -66,36 +56,30 @@ export default class ItemForm extends React.Component
 
                 return response.json();
             })
-            .then(item =>
-            {
+            .then(item => {
                 this.props.addItemToState(item);
                 this.props.toggle();
             })
-            .catch(err => 
-            {
+            .catch(err => {
                 this.showAlert(err.message);
             });
     }
 
-    submitEdit = e =>
-    {
+    submitEdit = e => {
         e.preventDefault();
 
         const form = e.currentTarget;
-        if (form.checkValidity() === false)
-        {
+        if (form.checkValidity() === false) {
             e.stopPropagation();
         }
-        else
-        {
+        else {
             this.updateItem();
         }
 
         this.setState({ validated: true });
     }
 
-    async updateItem()
-    {
+    async updateItem() {
         fetch(`${window.CATALOG_ITEMS_API_URL}/${this.state.id}`, {
             method: 'put',
             headers: {
@@ -108,10 +92,8 @@ export default class ItemForm extends React.Component
                 price: parseFloat(this.state.price)
             })
         })
-            .then(async response =>
-            {
-                if (!response.ok)
-                {
+            .then(async response => {
+                if (!response.ok) {
                     const errorData = await response.json();
                     console.error(errorData);
                     throw new Error(`Could not update the item: ${errorData.title}`);
@@ -120,14 +102,12 @@ export default class ItemForm extends React.Component
                 this.props.toggle();
                 this.props.updateItemIntoState(this.state.id);
             })
-            .catch(err => 
-            {
+            .catch(err => {
                 this.showAlert(err.message);
             });
     }
 
-    showAlert = (message) =>
-    {
+    showAlert = (message) => {
         this.setState({
             alertMessage: message,
             alertColor: "danger",
@@ -135,8 +115,7 @@ export default class ItemForm extends React.Component
         });
     }
 
-    render()
-    {
+    render() {
         return <Form noValidate validated={this.state.validated} onSubmit={this.props.item ? this.submitEdit : this.submitNew}>
             <Form.Group>
                 <Form.Label htmlFor="name">Name:</Form.Label>
@@ -149,7 +128,7 @@ export default class ItemForm extends React.Component
             </Form.Group>
             <Form.Group>
                 <Form.Label htmlFor="price">Price:</Form.Label>
-                <Form.Control type="number" name="price" onChange={this.onChange} value={this.state.price} required />
+                <Form.Control type="number" name="price" onChange={this.onChange} value={this.state.price} required min="1" />
                 <Form.Control.Feedback type="invalid">The Price field is required</Form.Control.Feedback>
             </Form.Group>
             <Button variant="primary" type="submit">Save</Button>

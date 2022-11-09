@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import AddToCartForm from '../view/form/AddToCartForm';
+import AddToCartForm from '../components/form/AddToCartForm';
 export default class AddToCartModal extends Component {
     state = {
         modal: false

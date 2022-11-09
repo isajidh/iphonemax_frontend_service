@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { ApplicationPaths } from '../constants';
+import { ApplicationPaths } from '../routes/RoutePath';
 
 export class About extends Component {
   static displayName = About.name;

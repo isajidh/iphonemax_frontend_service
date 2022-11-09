@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import ItemForm from '../view/form/ItemForm';
+import ItemForm from '../components/form/ItemForm';
 export default class ItemModal extends Component {
     state = {
         modal: false

@@ -4,5 +4,6 @@ export const ApplicationPaths = {
   CartPath: '/Cart',
   AboutPath: '/About',
   SignUpPath: '/SignUp',
-  LoginPath: '/Login'
+  LoginPath: '/Login',
+  AdminPath: '/Admin',
 };

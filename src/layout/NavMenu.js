@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { ApplicationPaths } from '../constants';
-import companyLogo from "../Assets/Images/Logo/logo.png";
-
+import { ApplicationPaths } from '../routes/RoutePath';
+import companyLogo from "../assets/Images/Logo/logo.png";
+import '../assets/styles/NavMenu.css';
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
 

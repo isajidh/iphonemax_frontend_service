@@ -10,8 +10,8 @@ import {
     MDBIcon,
     MDBInput
 } from 'mdb-react-ui-kit';
-import "../../Assets/styles/Login.css"
-import companyLogo from "../../Assets/Images/Logo/logo.png";
+import "../../assets/styles/Login.css"
+import companyLogo from "../../assets/Images/Logo/logo.png";
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 

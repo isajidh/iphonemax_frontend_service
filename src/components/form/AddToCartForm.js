@@ -2,8 +2,7 @@ import React from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 
-export default class AddToCartForm extends React.Component
-{
+export default class AddToCartForm extends React.Component {
     state = {
         id: '',
         userId: uuidv4(),
@@ -12,38 +11,31 @@ export default class AddToCartForm extends React.Component
         validated: false
     }
 
-    componentDidMount()
-    {
-        if (this.props.item)
-        {
+    componentDidMount() {
+        if (this.props.item) {
             const { id } = this.props.item
             this.setState({ id });
         }
     }
-    onChange = e =>
-    {
+    onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    submitGrant = (e) =>
-    {
+    submitGrant = (e) => {
         e.preventDefault();
 
         const form = e.currentTarget;
-        if (form.checkValidity() === false)
-        {
+        if (form.checkValidity() === false) {
             e.stopPropagation();
         }
-        else
-        {
+        else {
             this.grantItem();
         }
 
         this.setState({ validated: true });
     }
 
-    async grantItem()
-    {
+    async grantItem() {
         fetch(`${window.CART_ITEMS_API_URL}`, {
             method: 'post',
             headers: {
@@ -55,10 +47,8 @@ export default class AddToCartForm extends React.Component
                 quantity: Number(this.state.quantity)
             })
         })
-            .then(async response =>
-            {
-                if (!response.ok)
-                {
+            .then(async response => {
+                if (!response.ok) {
                     const errorData = await response.json();
                     console.error(errorData);
                     throw new Error(`Could not grant the item: ${errorData.title}`);
@@ -66,14 +56,12 @@ export default class AddToCartForm extends React.Component
 
                 this.props.toggle();
             })
-            .catch(err => 
-            {
+            .catch(err => {
                 this.showAlert(err.message);
             });
     }
 
-    showAlert = (message) =>
-    {
+    showAlert = (message) => {
         this.setState({
             alertMessage: message,
             alertColor: "danger",
@@ -81,8 +69,7 @@ export default class AddToCartForm extends React.Component
         });
     }
 
-    render()
-    {
+    render() {
         return <Form noValidate validated={this.state.validated} onSubmit={this.submitGrant}>
             <Form.Group>
                 <Form.Label htmlFor="userId">User Id:</Form.Label>
@@ -91,11 +78,10 @@ export default class AddToCartForm extends React.Component
             </Form.Group>
             <Form.Group>
                 <Form.Label htmlFor="quantity">Quantity:</Form.Label>
-                <Form.Control type="number" name="quantity" onChange={this.onChange} value={this.state.quantity} required />
+                <Form.Control type="number" name="quantity" onChange={this.onChange} value={this.state.quantity} required min="1" />
                 <Form.Control.Feedback type="invalid">The Quantity field is required</Form.Control.Feedback>
             </Form.Group>
             <Button variant="primary" type="submit">Add</Button>
-
             <Alert style={{ marginTop: "10px" }} variant={this.state.alertColor} show={this.state.alertVisible}>
                 {this.state.alertMessage}
             </Alert>
