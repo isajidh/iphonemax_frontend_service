@@ -1,0 +1,5 @@
+window._env_ = {
+CATALOG_ITEMS_API_URL: "http://localhost:5000",
+CART_ITEMS_API_URL: "http://localhost:5004",
+RABBITMQ_URL: "http://localhost:5672",
+}

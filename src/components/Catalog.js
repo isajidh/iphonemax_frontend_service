@@ -18,7 +18,7 @@ export class Catalog extends Component {
   }
 
   async populateItems() {
-    fetch(`${window.CATALOG_ITEMS_API_URL}`)
+    fetch(window._env_.CATALOG_ITEMS_API_URL+"/items")
       .then(response => {
         if (!response.ok) {
           throw Error("Could not fetch data for that resource");
@@ -46,7 +46,7 @@ export class Catalog extends Component {
   async deleteItem(id) {
     let confirmDeletion = window.confirm('Do you really wish to delete it?');
     if (confirmDeletion) {
-      fetch(`${window.CATALOG_ITEMS_API_URL}/${id}`, {
+      fetch(`${window._env_.CATALOG_ITEMS_API_URL}/${id}`, {
         method: 'delete',
         headers: {
           'Content-Type': 'application/json'

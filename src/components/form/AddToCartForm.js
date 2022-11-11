@@ -36,7 +36,7 @@ export default class AddToCartForm extends React.Component {
     }
 
     async grantItem() {
-        fetch(`${window.CART_ITEMS_API_URL}`, {
+        fetch(`${window._env_.CART_ITEMS_API_URL}`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'

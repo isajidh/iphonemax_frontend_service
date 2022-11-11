@@ -8,9 +8,15 @@
 // any syntax that is not yet supported by your targeted browsers.
 
 
-window.CATALOG_SERVICE_URL = 'http://catalog-api-service:5001'
-window.CATALOG_ITEMS_API_URL = `${window.CATALOG_SERVICE_URL}/items`
-window.CART_SERVICE_URL = 'http://cart-api-service:5005'
-window.CART_ITEMS_API_URL = `${window.CART_SERVICE_URL}/items`
-window.RABBITMQ_URL = 'http://mu-rabbit-rabbitmq.default.svc.cluster.local:15672'
+// window.CATALOG_SERVICE_URL = 'http://catalog-api-service:5001'
+// window.CATALOG_ITEMS_API_URL = `${window.CATALOG_SERVICE_URL}/items`
+// window.CART_SERVICE_URL = 'http://cart-api-service:5005'
+// window.CART_ITEMS_API_URL = `${window.CART_SERVICE_URL}/items`
+// window.RABBITMQ_URL = 'http://mu-rabbit-rabbitmq.default.svc.cluster.local:15672'
 
+
+window.CATALOG_SERVICE_URL = 'http://localhost:5000'
+window.CATALOG_ITEMS_API_URL = `${window.CATALOG_SERVICE_URL}/items`
+window.CART_SERVICE_URL = 'http://localhost:5004'
+window.CART_ITEMS_API_URL = `${window.CART_SERVICE_URL}/items`
+window.RABBITMQ_URL = 'http://localhost:5672'

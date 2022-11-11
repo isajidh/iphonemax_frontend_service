@@ -36,7 +36,7 @@ export default class ItemForm extends React.Component {
     }
 
     async createItem() {
-        fetch(`${window.CATALOG_ITEMS_API_URL}`, {
+        fetch(`${window._env_.CATALOG_ITEMS_API_URL}`+"/items", {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -80,7 +80,7 @@ export default class ItemForm extends React.Component {
     }
 
     async updateItem() {
-        fetch(`${window.CATALOG_ITEMS_API_URL}/${this.state.id}`, {
+        fetch(`${window._env_.CATALOG_ITEMS_API_URL}`+"/items"+`/${this.state.id}`, {
             method: 'put',
             headers: {
                 'Content-Type': 'application/json'

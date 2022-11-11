@@ -20,7 +20,7 @@ export class Client extends Component {
     }
 
     async populateItems() {
-        fetch(`${window.CATALOG_ITEMS_API_URL}`)
+        fetch(`${window._env_.CATALOG_ITEMS_API_URL}`+"/items")
             .then(response => {
                 return response.json();
             })
@@ -98,7 +98,7 @@ export class Client extends Component {
             <ul className="card-grid">
                 {this.search(items).map((item) => (
                     <li>
-                        <article className="card" key={item.name}>
+                        <article className="card" key={item._id}>
                             <div className="card-image">
                                 <img src={iphoneImage} alt={item.name} />
                             </div>
